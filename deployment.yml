@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: deploy-frontend
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: frontend
+template:
+  metadata:
+    name: apiclient-js     
+  labels:
+    role: user-interface-for-server
+    app: frontend
+    maintainer: Muhammad Haris Shafiq
+    email: harisshafiq08@gmail.com
+  annotations:
+    description: front-end for calling a simple API, which returns a Hello message which is concatenated with Date and Time by js code in this application and output displayed in a HTML label 
+  spec:
+    containers:
+    - image: apiclient:js
+      name: front-end
+      ports:
+      - containerPort: 80
+strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+    type: RollingUpdate
